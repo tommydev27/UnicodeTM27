@@ -3,208 +3,196 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tommy website</title>
-<style>
-  body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #e6f6f6;
-    overflow: hidden;
-  }
-  header {
-    background: #fff;
-    color: #333;
-    text-align: center;
-    padding: 8px 10px;
-    position: relative;
-    border: 3px solid #e2e2e2;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-    border-radius: 8px;
-  }
-  header h1 {
-    margin: 0;
-    font-size: 20px;
-  }
-  header p {
-    margin: 4px 0 0;
-    margin-left: -70px;
-    font-size: 11px;
-  }
+  <title>Tommy Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
 
-  .menu-button {
-    position: absolute;
-    right: 10px;
-    top: 8px;
-    font-size: 24px;
-    cursor: pointer;
-    user-select: none;
-  }
+  <style>
+    body {
+      font-family: 'Noto Sans', sans-serif;
 
-  .notes-tab {
-    position: fixed;
-    top: 0;
-    left: -300px;
-    width: 300px;
-    height: 50vh;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-    transition: left 0.3s ease;
-    padding: 15px;
-    box-sizing: border-box;
-    z-index: 100;
-    background: #ffffff;
-  }
+      margin: 0;
+      padding: 0;
+      background: #e6f6f6;
+    }
 
-  .notes-tab.open {
-    left: 0;
-  }
+    header {
+      background: #fff;
+      color: #333;
+      text-align: center;
+      padding: 10px;
+      border: 3px solid #e2e2e2;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      margin-bottom: px;
+      position: relative;
+    }
 
-  .notes-tab h2 {
-    margin: 0px 0px;
-    font-size: 14px;
-    color: #333;
-  }
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
 
-  .notes-tab textarea {
-    width: 100%;
-    height: calc(100% - 60px);
-    resize: none;
-    margin-top: 6px;
-    color: black;
-    padding: 8px;
-    box-shadow: 0 0 2px #2979ff inset;
-    box-sizing: border-box;
-    font-family: sans-serif;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    outline: none;
-  }
+    header p {
+      margin: 4px 0 0;
+      margin-left: -70px;
+      font-size: 11px;
+    }
 
-  .notes-actions {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    display: flex;
-    gap: 6px;
-    flex-direction: row;
-  }
+    .menu-button {
+      position: absolute;
+      right: 10px;
+      top: 8px;
+      font-size: 24px;
+      cursor: pointer;
+      user-select: none;
+    }
 
-  .notes-actions button {
-    padding: 6px 12px;
-    background: #2979ff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    flex-shrink: 0;
-    transition: background 0.2s ease;
-  }
+    .notes-tab {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 50vh;
+      border-radius: 5px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      transition: left 0.3s ease;
+      padding: 15px;
+      box-sizing: border-box;
+      z-index: 100;
+      background: #ffffff;
+    }
 
-  .notes-actions button:hover {
-    background: #1c54b2;
-  }
+    .notes-tab.open {
+      left: 0;
+    }
 
-  .menu-label {
-    font-size: 12px;
-    color: #333;
-    margin-top: 4px;
-  }
+    .notes-tab h2 {
+      margin: 0;
+      font-size: 14px;
+      color: #333;
+    }
 
-  #container {
-    width: 340px;
-    margin: 20px auto 40px auto;
-    text-align: center;
-    line-height: 2.5;
-    user-select: text;
-    margin-top: 0px;
-    overflow-y: auto;
-    max-height: 800px;
-    background: white;
-    padding: 10px 8px;
-    border-radius: 8px;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
-    border: 1px solid #ccc;
-  }
+    .notes-tab textarea {
+      width: 100%;
+      height: calc(100% - 60px);
+      resize: none;
+      margin-top: 0px;
+      color: black;
+      padding: 8px;
+      box-shadow: 0 0 2px #2979ff inset;
+      box-sizing: border-box;
+      font-family: sans-serif;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      outline: none;
+    }
 
-  .char {
-    display: inline-block;
-    width: 26px;
-    text-align: center;
-    margin: 0 4px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-    position: relative;
-    font-size: 22px;
-    line-height: 2;
-    user-select: text;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-  }
+    .notes-actions {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      display: flex;
+      gap: 6px;
+      flex-direction: row;
+    }
 
-  .char:hover {
-    background-color: #e0e0ff;
-    box-shadow: 0 0 2px #2979ff inset;
-  }
+    .notes-actions button {
+      padding: 6px 12px;
+      background: #2979ff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: background 0.2s ease;
+    }
 
-  button, .menu-button {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    touch-action: manipulation;
-  }
-  .char {
-  display: inline-block;
-  width: 26px;
-  text-align: center;
-  margin: 0 4px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-  position: relative;
-  font-size: 22px;
-  line-height: 2;
+    .notes-actions button:hover {
+      background: #1c54b2;
+    }
 
-  /* Tambahan anti-highlight */
-  -webkit-tap-highlight-color: transparent;
-  background-color: transparent;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-}
+    .menu-label {
+      font-size: 12px;
+      color: #333;
+      margin-top: 4px;
+    }
 
-</style>
+    #container {
+      width: 340px;
+      margin: 0 auto 30px auto;
+      text-align: center;
+      line-height: 2.5;
+      user-select: text;
+      overflow-y: auto;
+      height: 700px;
+      background: white;
+      padding: 8px;
+      border-radius: 8px;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+      border: 1px solid #ccc;
+    }
 
+    .char {
+      display: inline-block;
+      width: 26px;
+      text-align: center;
+      margin: 0 4px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+      position: relative;
+      font-size: 22px;
+      line-height: 2;
+      -webkit-tap-highlight-color: transparent;
+      background-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+    }
+
+    .char:hover {
+      background-color: #e0e0ff;
+      box-shadow: 0 0 2px #2979ff inset;
+    }
+
+    button, .menu-button {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      touch-action: manipulation;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1>Unicode symbols Tool</h1>
-  <p>Tommy website | V0.1.0 ©</p>
-  <div class="menu-button" onclick="toggleNotes()">
-    📝
-    <div class="menu-label">Catatan</div>
+  <header>
+    <h1>Unicode symbols Tool 2</h1>
+    <p>Tommy website | V0.1.0 ©</p>
+    <div class="menu-button" onclick="toggleNotes()">
+      📝
+      <div class="menu-label">Catatan</div>
+    </div>
+  </header>
+
+  <div id="container"></div>
+
+  <div class="notes-tab" id="notesTab">
+    <h2>Catatan</h2>
+    <textarea id="notesTextarea" placeholder="Tulis catatan di sini..."></textarea>
+    <div class="notes-actions">
+      <button class="copy-notes" onclick="copyNotes()">📋 Copy</button>
+      <button class="clear-notes" onclick="clearNotes()">Clear</button>
+      <button class="close-notes" onclick="toggleNotes()">Tutup</button>
+    </div>
   </div>
-</header>
 
-<div id="container"></div>
 
-<div class="notes-tab" id="notesTab">
-  <h2>Catatan</h2>
-  <textarea id="notesTextarea" placeholder="Tulis catatan di sini..."></textarea>
-
-<div class="notes-actions">
-  <button class="copy-notes" onclick="copyNotes()">📋 Copy</button>
-  <button class="clear-notes" onclick="clearNotes()">Clear</button>
-  <button class="close-notes" onclick="toggleNotes()">Tutup</button>
-</div>
 
 
 <script>
@@ -216,13 +204,63 @@
     notesTab.classList.toggle('open');
   }
 
-
 const ranges = [
-  [0x0000, 0x007F],
-  [0x0080, 0x00FF],
+  [0x0020, 0x007F],
+
   [0x0100, 0x017F],
   [0x0180, 0x024F],
   [0x0250, 0x02AF],
+  [0x0370, 0x03FF],
+  [0x0400, 0x04FF],
+  [0x0530, 0x058F],
+  [0x1100, 0x11FF],
+  [0x11200, 0x1124F],
+  
+  [0x1200, 0x137F],
+  [0x16800, 0x16A3F],
+
+
+  [0x1C00, 0x1C4F],
+  [0x1C50, 0x1C7F],
+  [0x1D100, 0x1D1FF],
+  [0x1D400, 0x1D7FF],
+  [0x1D7CE, 0x1D7D7],
+  [0x1D7D8, 0x1D7E1],
+  [0x1D7E2, 0x1D7EB],
+  [0x1D7EC, 0x1D7F5],
+  [0x1D7F6, 0x1D7FF],
+  [0x1E000, 0x1E02F],
+  [0x1F000, 0x1F0FF],   // gabungan 0x1F0A0-0x1F0FF & 1F000-1F0FF (aman)
+  [0x1F100, 0x1F10A],
+  [0x1F300, 0x1F5FF],
+  [0x1F600, 0x1F64F],
+  [0x1F680, 0x1F6FF],
+  [0x1F700, 0x1F77F],
+  [0x1F780, 0x1F7FF],
+  [0x1F800, 0x1F8FF],
+  [0x1F900, 0x1F9FF],
+  [0x1FA00, 0x1FA6F],
+  [0x1FA70, 0x1FAFF],
+  [0x2000, 0x206F],
+  [0x2070, 0x209F],
+  [0x20A0, 0x20CF],
+  [0x2100, 0x214F],
+  [0x2160, 0x2188],
+  [0x2190, 0x21FF],
+  [0x2200, 0x22FF],
+  [0x2300, 0x23FF],
+  [0x2460, 0x2473],
+  [0x24EA, 0x24FF],
+  [0x25A0, 0x25FF],
+  [0x2600, 0x26FF],
+  [0x2700, 0x27BF],
+  [0x2E80, 0x2EFF],
+  [0x3000, 0x303F],
+  [0x3040, 0x309F],
+  [0x30A0, 0x30FF],
+  [0x31F0, 0x31FF],
+  [0xA000, 0xA48F],
+  [0xFF10, 0xFF19],
   [0x02B0, 0x02FF],
   [0x0300, 0x036F],
   [0x0370, 0x03FF],
@@ -238,7 +276,6 @@ const ranges = [
   [0x0800, 0x083F],
   [0x0840, 0x085F],
   [0x0860, 0x086F],
-  [0x0870, 0x089F],
   [0x08A0, 0x08FF],
   [0x0900, 0x097F],
   [0x0980, 0x09FF],
@@ -320,8 +357,8 @@ const ranges = [
   [0x2D00, 0x2D2F],
   [0x2D30, 0x2D7F],
   [0x2D80, 0x2DDF],
+  [0x13000, 0x1342F],
   [0x2DE0, 0x2DFF],
-  [0x2E00, 0x2E7F],
   [0x2E80, 0x2EFF],
   [0x2F00, 0x2FDF],
   [0x2FF0, 0x2FFF],
@@ -336,10 +373,8 @@ const ranges = [
   [0x31F0, 0x31FF],
   [0x3200, 0x32FF],
   [0x3300, 0x33FF],
-  [0x3400, 0x4DBF],
   [0x4DC0, 0x4DFF],
-  [0x4E00, 0x9FFF],
-  [0xA000, 0xA48F],
+
   [0xA490, 0xA4CF],
   [0xA4D0, 0xA4FF],
   [0xA500, 0xA63F],
@@ -355,31 +390,17 @@ const ranges = [
   [0xA900, 0xA92F],
   [0xA930, 0xA95F],
   [0xA960, 0xA97F],
-  [0xA980, 0xA9DF],
-  [0xA9E0, 0xA9FF],
-  [0xAA00, 0xAA5F],
-  [0xAA60, 0xAA7F],
-  [0xAA80, 0xAADF],
-  [0xAAE0, 0xAAFF],
-  [0xAB00, 0xAB2F],
-  [0xAB30, 0xAB6F],
-  [0xAB70, 0xABBF],
-  [0xABC0, 0xABFF],
-  [0xAC00, 0xD7AF],
-  [0xD7B0, 0xD7FF],
-  [0xD800, 0xDB7F],
 
-  [0xFB00, 0xFB4F],
-  [0xFB50, 0xFDFF],
+  [0xA9E0, 0xA9FF],
+  [0xAA60, 0xAA7F],
+  [0xAB70, 0xABBF],
   [0xFE00, 0xFE0F],
   [0xFE10, 0xFE1F],
   [0xFE20, 0xFE2F],
   [0xFE30, 0xFE4F],
   [0xFE50, 0xFE6F],
   [0xFE70, 0xFEFF],
-  [0xFF00, 0xFFEF],
-  [0xFFF0, 0xFFFF]
-
+  [0xFF00, 0xFFEF]
 
 
 ];
@@ -476,7 +497,7 @@ const ranges = [
   function copyNotes() {
     const textarea = document.getElementById('notesTextarea');
     const isiCatatan = textarea.value;
-    const teksDenganLabel = `\n\n${isiCatatan}`;
+    const teksDenganLabel = `[Disalin dari Tommy Web]\n\n${isiCatatan}`;
 
     // Menyalin ke clipboard
     navigator.clipboard.writeText(teksDenganLabel).then(() => {
