@@ -497,7 +497,7 @@ const ranges = [
   function copyNotes() {
     const textarea = document.getElementById('notesTextarea');
     const isiCatatan = textarea.value;
-    const teksDenganLabel = `[Disalin dari Tommy Web]\n\n${isiCatatan}`;
+    const teksDenganLabel = `\n\n${isiCatatan}`;
 
     // Menyalin ke clipboard
     navigator.clipboard.writeText(teksDenganLabel).then(() => {
