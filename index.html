@@ -5,12 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tommy Website</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
-    <script src="script.js" defer></script>
-
   <style>
     body {
       font-family: 'Noto Sans', sans-serif;
-
       margin: 0;
       padding: 0;
       background: #e6f6f6;
@@ -24,8 +21,7 @@
       border: 3px solid #e2e2e2;
       box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
       border-radius: 8px;
-      margin-bottom: px;
-      position: relative;
+      margin-bottom: 8px;
     }
 
     header h1 {
@@ -35,97 +31,12 @@
 
     header p {
       margin: 4px 0 0;
-      margin-left: -70px;
       font-size: 11px;
-    }
-
-    .menu-button {
-      position: absolute;
-      right: 10px;
-      top: 8px;
-      font-size: 24px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .notes-tab {
-      position: fixed;
-      top: 0;
-      left: -300px;
-      width: 300px;
-      height: 50vh;
-      border-radius: 5px;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-      transition: left 0.3s ease;
-      padding: 15px;
-      box-sizing: border-box;
-      z-index: 100;
-      background: #ffffff;
-    }
-
-    .notes-tab.open {
-      left: 0;
-    }
-
-    .notes-tab h2 {
-      margin: 0;
-      font-size: 14px;
-      color: #333;
-    }
-
-    .notes-tab textarea {
-      width: 100%;
-      height: calc(100% - 60px);
-      resize: none;
-      margin-top: 0px;
-      color: black;
-      padding: 8px;
-      box-shadow: 0 0 2px #2979ff inset;
-      box-sizing: border-box;
-      font-family: sans-serif;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .notes-actions {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      display: flex;
-      gap: 6px;
-      flex-direction: row;
-    }
-
-    .notes-actions button {
-      padding: 6px 12px;
-      background: #2979ff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      flex-shrink: 0;
-      transition: background 0.2s ease;
-    }
-
-    .notes-actions button:hover {
-      background: #1c54b2;
-    }
-
-    .menu-label {
-      font-size: 12px;
-      color: #333;
-      margin-top: 4px;
     }
 
     #container {
       width: 340px;
       margin: 0 auto 30px auto;
-      text-align: center;
-      line-height: 2.5;
-      user-select: text;
       overflow-y: auto;
       height: 700px;
       background: white;
@@ -133,83 +44,91 @@
       border-radius: 8px;
       box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
       border: 1px solid #ccc;
+      display: none;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
     }
 
     .char {
       display: inline-block;
-      width: 26px;
-      text-align: center;
-      margin: 0 4px;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: background-color 0.2s ease;
-      position: relative;
       font-size: 22px;
-      line-height: 2;
-      -webkit-tap-highlight-color: transparent;
-      background-color: transparent;
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
+      padding: 8px;
+      border-radius: 6px;
+      user-select: text;
+      -webkit-user-select: text;
+      background: #fff;
+      box-shadow: 0 0 2px rgba(0,0,0,0.1);
+      width: 32px;
+      text-align: center;
     }
 
-    .char:hover {
-      background-color: #e0e0ff;
-      box-shadow: 0 0 2px #2979ff inset;
+    .char::selection {
+      background: #b0e0ff;
     }
 
-    button, .menu-button {
-      -webkit-tap-highlight-color: transparent;
-      -webkit-touch-callout: none;
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      touch-action: manipulation;
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+      text-align: center;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #spinner {
+      border: 6px solid #ccc;
+      border-top: 6px solid #2979ff;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 12px;
+    }
+
+    .loading-text {
+      font-size: 14px;
+      color: #444;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Unicode symbols Tool 2</h1>
-    <p>Tommy website | V0.1.0 ©</p>
-    <div class="menu-button" onclick="toggleNotes()">
-      📝
-      <div class="menu-label">Catatan</div>
-    </div>
-  </header>
-
-  <div id="container"></div>
-
-  <div class="notes-tab" id="notesTab">
-    <h2>Catatan</h2>
-    <textarea id="notesTextarea" placeholder="Tulis catatan di sini..."></textarea>
-    <div class="notes-actions">
-      <button class="copy-notes" onclick="copyNotes()">📋 Copy</button>
-      <button class="clear-notes" onclick="clearNotes()">Clear</button>
-      <button class="close-notes" onclick="toggleNotes()">Tutup</button>
-    </div>
+  <!-- Loading spinner -->
+  <div id="loading">
+    <div id="spinner"></div>
+    <div class="loading-text">Memuat karakter Unicode...</div>
   </div>
 
+  <!-- Header -->
+  <header>
+    <h1>Unicode</h1>
+    <p>Tommy Website | V0.1.0 ©</p>
+  </header>
 
+  <!-- Kontainer karakter -->
+  <div id="container"></div>
 
+  <script>
+    const container = document.getElementById('container');
+    const loading = document.getElementById('loading');
 
-<script>
-  const container = document.getElementById('container');
-  const notesTab = document.getElementById('notesTab');
-  const notesTextarea = document.getElementById('notesTextarea');
-
-  function toggleNotes() {
-    notesTab.classList.toggle('open');
-  }
-
-const ranges = [
-  [0x0020, 0x007F],
-
-  [0x0100, 0x017F],
-  [0x0180, 0x024F],
-  [0x0250, 0x02AF],
+    const ranges = [
+      [0x0020, 0x007F],
+      [0x0100, 0x017F],
+      [0x0180, 0x024F],
+        [0x0250, 0x02AF],
   [0x0370, 0x03FF],
   [0x0400, 0x04FF],
   [0x0530, 0x058F],
@@ -400,116 +319,32 @@ const ranges = [
   [0xFE30, 0xFE4F],
   [0xFE50, 0xFE6F],
   [0xFE70, 0xFEFF],
-  [0xFF00, 0xFFEF]
+  [0xFF00, 0xFFEF],
 
 
-];
+    ];
 
-  for (const [start, end] of ranges) {
-    for (let cp = start; cp <= end; cp++) {
-      const span = document.createElement('span');
-      span.className = 'char';
-      try {
-        span.textContent = String.fromCodePoint(cp);
-        container.appendChild(span);
-        if ((cp - start + 1) % 20 === 0) container.appendChild(document.createElement('br'));
-      } catch {}
-    }
-    container.appendChild(document.createElement('hr'));
-  }
-
-  function copyToClipboard(text) {
-    if (navigator.clipboard && window.isSecureContext) {
-      return navigator.clipboard.writeText(text);
-    } else {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      textarea.focus();
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      return Promise.resolve();
-    }
-  }
-
-  container.addEventListener('click', function (e) {
-    if (e.target.classList.contains('char')) {
-      const char = e.target.textContent;
-      copyToClipboard(char).then(() => {
-        // Tambahkan karakter ke textarea catatan
-        notesTextarea.value += char;
-
-        // Buat tooltip kecil
-        let tooltip = document.createElement('span');
-        tooltip.textContent = 'Copied!';
-        tooltip.style.position = 'absolute';
-        tooltip.style.background = '#333';
-        tooltip.style.color = '#fff';
-        tooltip.style.padding = '2px 6px';
-        tooltip.style.borderRadius = '4px';
-        tooltip.style.fontSize = '12px';
-        tooltip.style.pointerEvents = 'none';
-        tooltip.style.whiteSpace = 'nowrap';
-        tooltip.style.zIndex = 1000;
-
-        // Posisi tooltip di atas karakter
-        const rect = e.target.getBoundingClientRect();
-        tooltip.style.left = `${rect.left + window.scrollX + rect.width / 2}px`;
-        tooltip.style.top = `${rect.top + window.scrollY - 28}px`;
-        tooltip.style.transform = 'translateX(-50%)';
-        tooltip.style.opacity = '1';
-        tooltip.style.transition = 'opacity 0.3s ease';
-
-        document.body.appendChild(tooltip);
-
-        // Highlight background hijau sebentar
-        e.target.style.backgroundColor = '#c0ffc0';
-
-        // Hilangkan highlight dan tooltip setelah 1.5 detik
-        setTimeout(() => {
-          e.target.style.backgroundColor = '';
-          tooltip.style.opacity = '0';
-          setTimeout(() => {
-            tooltip.remove();
-          }, 300);
-        }, 1500);
-
-        // Buka panel catatan otomatis jika belum terbuka
-        if (!notesTab.classList.contains('open')) {
-          toggleNotes();
+    function generateCharacters(callback) {
+      for (const [start, end] of ranges) {
+        for (let cp = start; cp <= end; cp++) {
+          const charDiv = document.createElement('div');
+          charDiv.className = 'char';
+          try {
+            charDiv.textContent = String.fromCodePoint(cp);
+            container.appendChild(charDiv);
+          } catch {}
         }
+      }
+      callback(); // panggil callback jika selesai
+    }
+
+    window.addEventListener('load', () => {
+      generateCharacters(() => {
+        loading.style.display = 'none';
+        container.style.display = 'flex';
       });
-    }
-  });
-</script>
-
-<script>
-  function clearNotes() {
-    const textarea = document.getElementById('notesTextarea');
-    if (confirm("Yakin ingin menghapus semua catatan?")) {
-      textarea.value = '';
-    }
-  }
-
-  function copyNotes() {
-    const textarea = document.getElementById('notesTextarea');
-    const isiCatatan = textarea.value;
-    const teksDenganLabel = `\n\n${isiCatatan}`;
-
-    // Menyalin ke clipboard
-    navigator.clipboard.writeText(teksDenganLabel).then(() => {
-      alert('Catatan telah disalin ke clipboard!');
-    }).catch(err => {
-      console.error('Gagal menyalin:', err);
-      alert('Ups! Gagal menyalin catatan.');
     });
-  }
-</script>
-
-
+  </script>
 
 </body>
 </html>
